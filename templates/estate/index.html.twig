@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EstateController!{% endblock %}
+
+{% block body %}
+
+    {% for estate in estates %}
+
+    {{ dump(estate) }}
+
+    {% endfor %}
+
+{% endblock %}
