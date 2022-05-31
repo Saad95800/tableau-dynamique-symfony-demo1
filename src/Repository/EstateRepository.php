@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Estate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use App\classe\Filter;
 
 /**
  * @extends ServiceEntityRepository<Estate>
@@ -16,6 +18,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EstateRepository extends ServiceEntityRepository
 {
+
+    public const PAGINATOR_PER_PAGE = 20;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Estate::class);
@@ -37,6 +42,30 @@ class EstateRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getEstatePaginator(Estate $estate, $offset): Paginator
+    {
+
+        $query = $this->createQueryBuilder('e')
+                ->setMaxResults(self::PAGINATOR_PER_PAGE)
+                ->orderBy('e.id', 'DESC')
+                ->setFirstResult($offset)
+                ->getQuery();
+
+        return new Paginator($query);
+
+    }
+
+    public function findByCity(Filter $filter){
+        
+        return $this->createQueryBuilder('e')
+                ->andWhere('e.city LIKE :val')
+                ->setParameter('val', "%{$filter->city}%")
+                ->orderBy('e.id', 'DESC')
+                ->getQuery()
+                ->getResult();
+
     }
 
 //    /**

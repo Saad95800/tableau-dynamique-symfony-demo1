@@ -7,3 +7,15 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.scss';
+
+document.querySelector('#add-good').addEventListener('click', ()=>{
+    document.querySelector('#black-screen').style.display = 'flex';
+});
+
+document.querySelector('#black-screen').addEventListener('click', ()=>{
+    document.querySelector('#black-screen').style.display = 'none';
+});
+
+document.querySelector('#black-screen').querySelector('form').addEventListener('click', function(e){
+    e.stopPropagation();
+})
