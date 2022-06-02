@@ -53,8 +53,17 @@
 
     <div class="btn btn-warning float-end" id="add-good">Ajouter un bien</div>
 
-    <img src="arrow-right.png" id="img-next" alt="" style="border:1px solid black;width:30px;height:30px;float:right;margin-top:50px;cursor:pointer;">
-    <img src="arrow-left.png" id="img-previous" alt="" style="border:1px solid black;width:30px;height:30px;float:left;margin-top:50px;cursor:pointer;">
+    <form method="post" style="width:30px;height:30px;float:left;margin-top:50px;cursor:pointer;">
+        <input type="hidden" name="prev" value="{{ prev_page }}">
+        <input type="submit" class="btn btn-info" value="prev">
+    </form>
+    <form method="post" style="width:30px;height:30px;float:right;margin-top:50px;cursor:pointer;">
+        <input type="hidden" name="next" value="{{ next_page }}">
+        <input type="submit" class="btn btn-info" value="next">
+    </form>
+    
+    <p class="text-center fw-bold"> {{ current_page }} </p>
+
     <div class="container">
         <table class="table table-striped">
             <thead>
